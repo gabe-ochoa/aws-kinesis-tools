@@ -22,7 +22,6 @@ Automated tasks:
     Delivery Stream (TODO)
 
 Dependancies:
-- [AWS CLI Tool](https://aws.amazon.com/cli/)
 - Lambda HTTP
 - [AWS Lambda Streams to Firehose](https://github.com/awslabs/lambda-streams-to-firehose)
 
