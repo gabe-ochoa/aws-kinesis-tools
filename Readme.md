@@ -98,7 +98,7 @@ Usage: ruby kinesis.rb create-firehose-stream <firehose_name> <s3_bucket> <fireh
 ```
 def KinesisFirehose.create(firehose_name, s3_bucket, firehose_prefix)
 
-  print firehose_name, aws_arn, s3_bucket
+  aws_arn
 end
 ```
 
@@ -108,9 +108,8 @@ Inputs:
 - Firehose prefix
 
 Outputs:
-- Firehose Stream Name
 - Firehose AWS ARN
-- S3 Bucket
+
 
 ### Create a Lambda function to pull from a Kinesis Stream and send to a Firehose Delivery Stream
 This will create a Lambda Function that reads records from a Kinesis Stream and then sends them to a Firehose Delivery Stream.
