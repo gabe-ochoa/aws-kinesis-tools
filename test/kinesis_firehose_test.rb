@@ -1,4 +1,4 @@
-require_relative "../app/kinesis_firehose.rb"
+require_relative "../app/kinesis_firehose"
 require "test/unit"
 require 'mocha/test_unit'
 require 'pry'
