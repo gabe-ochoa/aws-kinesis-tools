@@ -9,7 +9,7 @@ module KinesisTools
 
   def KinesisTools.load_aws_credentials
     # creds_file_path = ENV['HOME'] + "/.aws/credentials"
-    
+
     if !(ENV['AWS_ACCESS_KEY_ID'].nil? && ENV['AWS_SECRET_ACCESS_KEY'].nil?)
       access_key_id = ENV['AWS_ACCESS_KEY_ID']
       secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
@@ -32,7 +32,10 @@ module KinesisTools
   end
 
   def KinesisTools.aws_credentials
-    Aws::Credentials.new(load_aws_credentials)
+    Aws::Credentials.new(
+      load_aws_credentials[:access_key_id],
+      load_aws_credentials[:secret_access_key]
+    )
   end
 
   def KinesisTools.start
