@@ -1,9 +1,8 @@
-require 'aws-sdk'
-require 'json'
+require_relative 'kinesis'
 
-module KinesisTools
+class AwsService
 
-  def self.create_kinesis_stream
+  def initialize
 
   end
 
@@ -31,29 +30,9 @@ module KinesisTools
 
   def self.aws_config
     Aws.config.update({
-      region: 'us-west-2',
+      region: ENV['AWS_REGION'] || 'us-east-1',
       credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
     })
   end
 
-  def self.start
-    self.aws_config
-
-    # create kinesis stream
-
-    # create lambda function to post to sumo
-
-    # create s3 bucket (if no specified, need a stop check)
-
-    # create kinesis firehose
-
-    # create lambda function to move logs from kinesis to firehose
-
-    # create
-
-  end
-
 end
-
-# start
-KinesisTools.start

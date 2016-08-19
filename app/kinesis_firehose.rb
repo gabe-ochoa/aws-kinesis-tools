@@ -1,13 +1,14 @@
 require_relative "kinesis.rb"
+require 'aws'
 
 class KinesisFirehose
 
   def initialize()
-    @firehose = Aws::Firehose::Client.new()
+    @firehose ||= Aws::Firehose::Client.new()
+    AwsService.config
   end
 
   def create(name, s3_bucket, prefix)
-
     options = {
       delivery_stream_name: name,
       # compression_format: 'GZIP',

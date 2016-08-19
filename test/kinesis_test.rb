@@ -4,12 +4,16 @@ require "test/unit"
 require 'mocha/test_unit'
 require 'pry'
 
-class TestKinesis < Test::Unit::TestCase
+class TestKinesisTools < Test::Unit::TestCase
 
   def setup
     access_key = ENV['AWS_ACCESS_KEY_ID']
     secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+    @aws_client = Aws::Client.new{
+      stub_responses: {
 
+      }
+    }
     @creds_hash = {
       access_key_id: access_key,
       secret_access_key: secret_access_key
@@ -19,14 +23,6 @@ class TestKinesis < Test::Unit::TestCase
 
   def test_create
     KinesisTools.start
-  end
-
-  def test_check_aws_credentials
-    creds_hash = {
-      access_key_id: 'foo',
-      secret_access_key: 'bar'
-    }
-    assert_equal(creds_hash,KinesisTools.load_aws_credentials)
   end
 
   # def test_monitoring_setup

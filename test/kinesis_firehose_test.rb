@@ -20,6 +20,7 @@ class TestKinesisFirehose < Test::Unit::TestCase
   end
 
   def test_create
+    binding.pry
     @kinesis_firehose.create(@name, @s3_bucket, @prefix)
   end
 
