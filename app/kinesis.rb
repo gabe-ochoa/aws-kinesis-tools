@@ -7,16 +7,16 @@ module KinesisTools
 
   end
 
-  def KinesisTools.load_aws_credentials
+  def KinesisTools.check_aws_credentials
     # creds_file_path = ENV['HOME'] + "/.aws/credentials"
+    env_found = !(ENV['AWS_ACCESS_KEY_ID'].nil? && ENV['AWS_SECRET_ACCESS_KEY'].nil?)
+    file_found = File.exist?(ENV['HOME']+"/.aws/credentials")
 
-    if !(ENV['AWS_ACCESS_KEY_ID'].nil? && ENV['AWS_SECRET_ACCESS_KEY'].nil?)
-      access_key_id = ENV['AWS_ACCESS_KEY_ID']
-      secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-      creds_hash = {
-        access_key_id: access_key_id,
-        secret_access_key: secret_access_key
-      }
+    creds_found = file_found || env_found
+
+    if creds_found
+
+      puts "AWS Credentials found!"
     else
       e_message = """
       AWS Credentials files not found in #{ENV['HOME']}.
@@ -29,13 +29,6 @@ module KinesisTools
       puts e_message
     end
     creds_hash
-  end
-
-  def KinesisTools.aws_credentials
-    Aws::Credentials.new(
-      load_aws_credentials[:access_key_id],
-      load_aws_credentials[:secret_access_key]
-    )
   end
 
   def KinesisTools.start

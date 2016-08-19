@@ -1,4 +1,5 @@
 require_relative "../app/kinesis_firehose"
+require_relative "test_helper"
 require "test/unit"
 require 'mocha/test_unit'
 require 'pry'
@@ -13,8 +14,11 @@ class TestKinesisFirehose < Test::Unit::TestCase
   end
 
   def test_create
-
     @kinesis_firehose.create(@name, @s3_bucket, @prefix)
+  end
+
+  def test_get_s3_bucket_arn
+    @kinesis_firehose.get_s3_bucket_arn(@s3_bucket)
   end
 
   # def test_monitoring_setup

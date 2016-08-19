@@ -14,17 +14,14 @@ class TestKinesis < Test::Unit::TestCase
       access_key_id: access_key,
       secret_access_key: secret_access_key
     }
+
   end
 
   def test_create
     KinesisTools.start
   end
 
-  def test_aws_credentials_set
-    KinesisTools.aws_credentials.set?
-  end
-
-  def test_load_aws_credentials
+  def test_check_aws_credentials
     creds_hash = {
       access_key_id: 'foo',
       secret_access_key: 'bar'
