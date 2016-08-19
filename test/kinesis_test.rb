@@ -7,17 +7,6 @@ require 'pry'
 class TestKinesisTools < Test::Unit::TestCase
 
   def setup
-    access_key = ENV['AWS_ACCESS_KEY_ID']
-    secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-    @aws_client = Aws::Client.new{
-      stub_responses: {
-
-      }
-    }
-    @creds_hash = {
-      access_key_id: access_key,
-      secret_access_key: secret_access_key
-    }
 
   end
 
