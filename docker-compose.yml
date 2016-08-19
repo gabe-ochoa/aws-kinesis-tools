@@ -1,0 +1,4 @@
+kinesis-tools:
+  build: .
+  volumes:
+    - .:/usr/app
