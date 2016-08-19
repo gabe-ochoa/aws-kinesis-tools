@@ -11,6 +11,11 @@ class TestKinesisFirehose < Test::Unit::TestCase
     @s3_bucket = 'test-s3-bucket'
     @prefix = 'test-app'
     @kinesis_firehose = KinesisFirehose.new
+    Aws.config[:Firehose] = {
+      stub_responses: {
+        create_delivery_stream: { arn: 'test-arn'}
+      }
+    }
   end
 
   def test_create
