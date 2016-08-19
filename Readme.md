@@ -110,6 +110,8 @@ Inputs:
 Outputs:
 - Firehose AWS ARN
 
+Known Issues:
+- Compression format is currently not set
 
 ### Create a Lambda function to pull from a Kinesis Stream and send to a Firehose Delivery Stream
 This will create a Lambda Function that reads records from a Kinesis Stream and then sends them to a Firehose Delivery Stream.
