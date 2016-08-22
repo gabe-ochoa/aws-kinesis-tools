@@ -7,6 +7,7 @@ require 'pry'
 class S3ServiceTest < Test::Unit::TestCase
 
   def setup
+    @name = 'test-firhose-bucket'
     s3_options = {
       stub_responses: {
         list_buckets: {
@@ -17,9 +18,8 @@ class S3ServiceTest < Test::Unit::TestCase
     @s3_bucket = S3Service.new(s3_options)
   end
 
-  def test_get_s3_bucket_arn
-
-
+  def test_create
+    @s3_bucket.create(@name)
   end
 
 
