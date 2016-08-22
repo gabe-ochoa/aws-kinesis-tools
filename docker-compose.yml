@@ -1,4 +1,5 @@
 kinesis-tools:
   build: .
+  command: ruby test/kinesis_test.rb
   volumes:
     - .:/usr/app

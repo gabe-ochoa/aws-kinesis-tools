@@ -1,11 +1,11 @@
-require_relative "kinesis.rb"
-require 'aws'
+require_relative "kinesis"
+require_relative 'aws_service'
 
 class KinesisFirehose
 
-  def initialize()
-    @firehose ||= Aws::Firehose::Client.new()
-    AwsService.config
+  def initialize(options = {})
+    AwsService.aws_config
+    @firehose ||= Aws::Firehose::Client.new(options)
   end
 
   def create(name, s3_bucket, prefix)
