@@ -18,14 +18,7 @@ class TestKinesisFirehose < Test::Unit::TestCase
       }
     }
     @kinesis_firehose = KinesisFirehose.new(firehose_options)
-    s3_options = {
-      stub_responses: {
-        list_buckets: {
-          buckets: [{name: 'test-firhose-bucket' }] },
-        get_object: { body: 's3=firehose-data' },
-      }
-    }
-    @s3_bucket = Aws::S3::Client.new(s3_options)
+
   end
 
   def test_create
