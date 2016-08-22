@@ -17,4 +17,15 @@ class KinesisStream
     @stream.create_stream(options)
   end
 
+  def add_tag(stream_name, tag)
+    key = tag.keys
+    options = {
+      stream_name: stream_name, # required
+      tags: { # required
+        key.first => tag[key.first]
+      }
+    }
+    @stream.add_tags_to_stream(options)
+  end
+
 end
