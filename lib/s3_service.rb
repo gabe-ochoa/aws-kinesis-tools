@@ -1,4 +1,4 @@
-require_relative '../app/kinesis'
+require_relative '../app/kinesis_tools'
 require_relative './aws_service'
 
 class S3Service

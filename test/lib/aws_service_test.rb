@@ -1,4 +1,4 @@
-require_relative "../../app/kinesis"
+require_relative "../../app/kinesis_tools"
 require_relative "../test_helper"
 require "test/unit"
 require 'mocha/test_unit'

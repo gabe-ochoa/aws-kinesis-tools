@@ -1,4 +1,4 @@
-require_relative '../app/kinesis'
+require_relative '../app/kinesis_tools'
 
 class AwsService
 

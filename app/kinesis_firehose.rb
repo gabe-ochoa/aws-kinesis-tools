@@ -1,4 +1,4 @@
-require_relative "kinesis"
+require_relative "kinesis_tools"
 require_relative '../lib/aws_service'
 
 class KinesisFirehose
