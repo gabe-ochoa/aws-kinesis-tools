@@ -13,8 +13,8 @@ class KinesisFirehose
       delivery_stream_name: name,
       s3_destination_configuration: {
         compression_format: "ZIP",
-        role_arn: "RoleARN", # required
-        bucket_arn: "BucketARN", # required
+        role_arn: "arn:aws:iam:::", # required
+        bucket_arn: "arn:aws:s3:::#{s3_bucket}", # required
         prefix: prefix,
         cloud_watch_logging_options: {
           enabled: true
