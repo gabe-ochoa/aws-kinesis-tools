@@ -27,4 +27,4 @@ module KinesisTools
 end
 
 # start
-KinesisTools.start
+# KinesisTools.start
