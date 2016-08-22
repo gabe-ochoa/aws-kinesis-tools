@@ -11,15 +11,15 @@ class KinesisFirehose
   def create(name, s3_bucket, prefix)
     options = {
       delivery_stream_name: name,
-      # compression_format: 'GZIP',
       s3_destination_configuration: {
+        compression_format: "ZIP",
         role_arn: "RoleARN", # required
         bucket_arn: "BucketARN", # required
-        prefix: prefix
-      },
-      # cloud_watch_logging_options: {
-      #   enabled: true
-      # }
+        prefix: prefix,
+        cloud_watch_logging_options: {
+          enabled: true
+        }
+      }
     }
 
     @firehose.create_delivery_stream(options)
