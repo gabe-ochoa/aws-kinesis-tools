@@ -24,9 +24,9 @@ class TestKinesisFirehose < Test::Unit::TestCase
     @kinesis_firehose.create(@name, @s3_bucket, @prefix)
   end
 
-  # def test_get_s3_bucket_arn
-  #   @kinesis_firehose.get_s3_bucket_arn(@s3_bucket)
-  # end
+  def test_get_s3_bucket_arn
+    @kinesis_firehose.get_s3_bucket_arn(@s3_bucket)
+  end
 
   # def test_monitoring_setup
   #
