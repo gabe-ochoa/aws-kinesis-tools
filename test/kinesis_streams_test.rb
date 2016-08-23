@@ -63,6 +63,10 @@ class TestKinesisStream < Test::Unit::TestCase
     @kinesis_stream.create(@stream_name, shard_count)
   end
 
+  def test_create_no_shard_count
+    @kinesis_stream.create(@stream_name)
+  end
+
   def test_add_tag
     tag = { 'Foo' => 'bar' }
     @kinesis_stream.add_tag(@stream_name, tag)

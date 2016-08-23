@@ -9,7 +9,12 @@ class KinesisStream
     @stream_name
   end
 
-  def create(stream_name, shard_count)
+  def create(stream_name, shard_count = {})
+
+    if shard_count.nil?
+      shard_count = 10
+    end
+
     options = {
         stream_name: stream_name, # required
         shard_count: shard_count # required

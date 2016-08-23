@@ -1,28 +1,40 @@
 require 'aws-sdk'
 require 'json'
+require 'kinesis_firehose'
+require 'kinesis_streams'
 
 module KinesisTools
 
-  def self.create_kinesis_stream
+  class LoggingDeploy
 
-  end
+    def initialize
 
-  def self.start
-    self.aws_config
+    end
 
-    # create kinesis stream
+    def create_full_logging_solution(app_name,
+        kinesis_shard_count = {},
+        s3_bucket,
+      )
 
-    # create lambda function to post to sumo
+      # create kinesis stream
+      stream = KinesisStream.new
+      stream.create(app_name + '-stream', kinesis_shard_count)
 
-    # create s3 bucket (if no specified, need a stop check)
+      # create lambda function to post to sumo
 
-    # create kinesis firehose
+      # create kinesis firehose
+      firehose = KinesisFirehose.new
+      firehose.create(app_name + '-stream', s3_bucket, app_name)
 
-    # create lambda function to move logs from kinesis to firehose
+      # create lambda function to move logs from kinesis to firehose
 
-    # create
+      # create monitoring
 
-  end
+    end
+
+    def monitoring_options
+
+    end
 
 end
 

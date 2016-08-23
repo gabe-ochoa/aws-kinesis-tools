@@ -7,11 +7,17 @@ require 'pry'
 class TestKinesisTools < Test::Unit::TestCase
 
   def setup
-
+    @name = 'test-app-name'
   end
 
-  def test_create
-    KinesisTools.start
+  def test_create_full_logging_solution
+    kinesis_shard_count = '20'
+    s3_bucket = 'test-bucket'
+    KinesisTools.create_full_logging_solution(@name, kinesis_shard_count, s3_bucket)
+  end
+
+  def test_logging_path_load_test
+    KinesisTools.logging_path_load_test(File.read("path/to/file"))
   end
 
   # def test_monitoring_setup
