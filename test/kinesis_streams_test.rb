@@ -69,7 +69,7 @@ class TestKinesisStream < Test::Unit::TestCase
   end
 
   def test_split_shard
-    @kinesis_stream.split_shard(@name, @shard_id, @starting_key_hash)
+    @kinesis_stream.split_shard(@name, @shard_id)
   end
 
   def test_describe_stream
@@ -111,6 +111,10 @@ class TestKinesisStream < Test::Unit::TestCase
     }
     @kinesis_stream = KinesisStream.new(kinesis_options)
     @kinesis_stream.describe_shard(@name, @shard_id)
+  end
+
+  def test_get_new_starting_hash_key
+    assert_equal('21267647932558653966460912964485513215',@kinesis_stream.get_new_starting_hash_key(@name, @shard_id))
   end
 
   # def test_split_all_shards

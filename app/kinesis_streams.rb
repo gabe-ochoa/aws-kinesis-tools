@@ -9,9 +9,9 @@ class KinesisStream
     @stream_name
   end
 
-  def create(name, shard_count)
+  def create(stream_name, shard_count)
     options = {
-        stream_name: name, # required
+        stream_name: stream_name, # required
         shard_count: shard_count # required
     }
 
@@ -29,31 +29,44 @@ class KinesisStream
     @stream.add_tags_to_stream(options)
   end
 
-  def describe_stream(name)
+  def describe_stream(stream_name)
 
     options = (
       {
-      stream_name: name, # required
+        stream_name: stream_name, # required
       }
     )
     @stream.describe_stream(options)
   end
 
-  def describe_shard(name, starting_shard_id)
+  def describe_shard(stream_name, starting_shard_id)
 
     options = (
       {
-      stream_name: name, # required
-      limit: 1,
-      exclusive_start_shard_id: starting_shard_id
+        stream_name: stream_name, # required
+        limit: 1,
+        exclusive_start_shard_id: starting_shard_id
       }
     )
     @stream.describe_stream(options)['stream_description']
   end
 
-  def split_shard(stream_name, shard_id, starting_hash)
-    shard = describe_shard(shard_id)
+  def split_shard(stream_name, shard_id)
+    options = (
+      {
+        stream_name: stream_name, # required
+        shard_to_split: shard_id, # required
+        new_starting_hash_key: get_new_starting_hash_key(stream_name, shard_id), # required
+      }
+    )
+    @stream.split_shard(options)
+  end
 
+  def get_new_starting_hash_key(stream_name, shard_id)
+    shard_info = describe_shard(stream_name, shard_id)
+    old_ending_hash_key = shard_info['shards'][0]['hash_key_range']['ending_hash_key']
+    new_starting_hash_key = old_ending_hash_key.to_i/2
+    new_starting_hash_key.to_s
   end
 
 end
