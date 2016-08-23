@@ -6,6 +6,7 @@ class KinesisStream
   def initialize(options = {})
     AwsService.aws_config
     @stream ||= Aws::Kinesis::Client.new(options)
+    @stream_name
   end
 
   def create(name, shard_count)
@@ -26,6 +27,33 @@ class KinesisStream
       }
     }
     @stream.add_tags_to_stream(options)
+  end
+
+  def split_shard(stream_name, shard_id, starting_hash)
+
+
+  end
+
+  def describe_stream(name)
+
+    options = (
+      {
+      stream_name: name, # required
+      }
+    )
+    @stream.describe_stream(options)
+  end
+
+  def describe_shard(name, starting_shard_id)
+
+    options = (
+      {
+      stream_name: name, # required
+      limit: 1,
+      exclusive_start_shard_id: starting_shard_id
+      }
+    )
+    @stream.describe_stream(options)
   end
 
 end
