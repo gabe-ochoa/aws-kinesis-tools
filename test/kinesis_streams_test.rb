@@ -117,9 +117,13 @@ class TestKinesisStream < Test::Unit::TestCase
     assert_equal('21267647932558653966460912964485513215',@kinesis_stream.get_new_starting_hash_key(@name, @shard_id))
   end
 
-  # def test_split_all_shards
-  #   @kinesis_stream.split_all_shards(@name)
-  # end
+  def test_split_all_shards
+    @kinesis_stream.split_all_shards(@name)
+  end
+
+  def get_stream_status
+    assert_equal('ACTIVE',(@kinesis_stream.get_stream_status(@name)))
+  end
   #
   # def test_enable_enhanced_monitoring
   #

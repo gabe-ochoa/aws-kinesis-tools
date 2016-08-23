@@ -36,7 +36,7 @@ class KinesisStream
         stream_name: stream_name, # required
       }
     )
-    @stream.describe_stream(options)
+    @stream.describe_stream(options)['stream_description']
   end
 
   def describe_shard(stream_name, starting_shard_id)
@@ -69,4 +69,18 @@ class KinesisStream
     new_starting_hash_key.to_s
   end
 
+  def split_all_shards(stream_name)
+    shards = describe_stream(stream_name)['shards']
+    shards.each do |shard|
+      split_shard(stream_name, shard['shard_id'])
+      # logger.info "Waiting for stream to update"
+      while get_stream_status(stream_name) == 'UPDATING'
+        sleep 5
+      end
+    end
+  end
+
+  def get_stream_status(stream_name)
+    stream_status = describe_stream(stream_name)['stream_status']
+  end
 end
