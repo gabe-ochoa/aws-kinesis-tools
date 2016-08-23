@@ -7,15 +7,15 @@ require 'pry'
 class TestKinesisStream < Test::Unit::TestCase
 
   def setup
-    @name = 'test-kinesis-stream'
+    @stream_name = 'test-kinesis-stream'
     @s3_bucket_name = 'test-s3-bucket'
     @prefix = 'test-app'
     kinesis_options = {
       stub_responses: {
         describe_stream: {
           stream_description: {
-            stream_name: @name,
-            stream_arn: "arn:aws:kinesis:us-east-1:567022000440:stream/#{@name}",
+            stream_name: @stream_name,
+            stream_arn: "arn:aws:kinesis:us-east-1:567022000440:stream/#{@stream_name}",
             stream_status: 'ACTIVE',
             shards: [
                 {
@@ -60,20 +60,20 @@ class TestKinesisStream < Test::Unit::TestCase
 
   def test_create
     shard_count = 10
-    @kinesis_stream.create(@name, shard_count)
+    @kinesis_stream.create(@stream_name, shard_count)
   end
 
   def test_add_tag
     tag = { 'Foo' => 'bar' }
-    @kinesis_stream.add_tag(@name, tag)
+    @kinesis_stream.add_tag(@stream_name, tag)
   end
 
   def test_split_shard
-    @kinesis_stream.split_shard(@name, @shard_id)
+    @kinesis_stream.split_shard(@stream_name, @shard_id)
   end
 
   def test_describe_stream
-    @kinesis_stream.describe_stream(@name)
+    @kinesis_stream.describe_stream(@stream_name)
   end
 
   def test_describe_shard
@@ -81,8 +81,8 @@ class TestKinesisStream < Test::Unit::TestCase
       stub_responses: {
         describe_stream: {
           stream_description: {
-            stream_name: @name,
-            stream_arn: "arn:aws:kinesis:us-east-1:567022000440:stream/#{@name}",
+            stream_name: @stream_name,
+            stream_arn: "arn:aws:kinesis:us-east-1:567022000440:stream/#{@stream_name}",
             stream_status: 'ACTIVE',
             shards: [
                 {
@@ -110,40 +110,23 @@ class TestKinesisStream < Test::Unit::TestCase
       }
     }
     @kinesis_stream = KinesisStream.new(kinesis_options)
-    @kinesis_stream.describe_shard(@name, @shard_id)
+    @kinesis_stream.describe_shard(@stream_name, @shard_id)
   end
 
   def test_get_new_starting_hash_key
-    assert_equal('21267647932558653966460912964485513215',@kinesis_stream.get_new_starting_hash_key(@name, @shard_id))
+    assert_equal('21267647932558653966460912964485513215',@kinesis_stream.get_new_starting_hash_key(@stream_name, @shard_id))
   end
 
   def test_split_all_shards
-    @kinesis_stream.split_all_shards(@name)
+    @kinesis_stream.split_all_shards(@stream_name)
   end
 
   def get_stream_status
-    assert_equal('ACTIVE',(@kinesis_stream.get_stream_status(@name)))
+    assert_equal('ACTIVE',(@kinesis_stream.get_stream_status(@stream_name)))
   end
-  #
-  # def test_enable_enhanced_monitoring
-  #
-  # end
-  #
-  # def test_get_shard_iterator
-  #
-  # end
 
-  # def test_monitoring_setup
-  #
-  # end
-  #
-  # def test_s3_bucket_exists
-  #
-  # end
-  #
-  # def method_name
-  #
-  # end
-
+  def test_enable_enhanced_monitoring
+    @kinesis_stream.enable_enhanced_monitoring(@stream_name)
+  end
 
 end
