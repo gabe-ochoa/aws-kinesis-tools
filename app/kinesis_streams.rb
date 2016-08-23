@@ -29,11 +29,6 @@ class KinesisStream
     @stream.add_tags_to_stream(options)
   end
 
-  def split_shard(stream_name, shard_id, starting_hash)
-
-
-  end
-
   def describe_stream(name)
 
     options = (
@@ -53,7 +48,12 @@ class KinesisStream
       exclusive_start_shard_id: starting_shard_id
       }
     )
-    @stream.describe_stream(options)
+    @stream.describe_stream(options)['stream_description']
+  end
+
+  def split_shard(stream_name, shard_id, starting_hash)
+    shard = describe_shard(shard_id)
+
   end
 
 end
