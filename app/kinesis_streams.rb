@@ -83,4 +83,15 @@ class KinesisStream
   def get_stream_status(stream_name)
     stream_status = describe_stream(stream_name)['stream_status']
   end
+
+  def enable_enhanced_monitoring(stream_name)
+    options = (
+      {
+        stream_name: stream_name, # required
+        shard_level_metrics: ["ALL"], # required, accepts IncomingBytes, IncomingRecords, OutgoingBytes, OutgoingRecords, WriteProvisionedThroughputExceeded, ReadProvisionedThroughputExceeded, IteratorAgeMilliseconds, ALL
+      }
+    )
+    @stream.enable_enhanced_monitoring(options)
+  end
+
 end
