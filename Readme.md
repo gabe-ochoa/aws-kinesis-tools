@@ -1,6 +1,6 @@
-# Kinesis Tools
+# Kinesis Logging Path Tools
 
-This is a ruby cli tool for interacting with Amazon Kinesis and Amazon Kinesis Firehose.
+This is a ruby cli tool for interacting with Amazon Kinesis, Kinesis Firehose, S3, and Lambda to create a full monitored logging solution for an application.
 
 It was build to be an automated tool for setting up new applications with a full
 logging solution that includes storage and offloading to other 3rd-party tool
@@ -13,13 +13,14 @@ query tools over http.
 If the permissions are present, CloudWatch monitoring will be set up for each new resource created.
 
 Automated tasks:
-- Create a Kinesis Stream (TODO)
+- Create a Kinesis Stream
 - Increase the shard count of a Kinesis Stream
 - Create a Lambda function to pull from a Kinesis stream and send to an HTTP
     endpoint (TODO)
-- Create Kinesis Firehose Delivery Stream pointed to a S3 bucket (TODO)
+- Create Kinesis Firehose Delivery Stream pointed to a S3 bucket
 - Create a Lambda function to pull from a Kinesis Stream and send to a Firehose
     Delivery Stream (TODO)
+- Create CloudWatch Alarms for new resources
 
 Dependancies:
 - Lambda HTTP
