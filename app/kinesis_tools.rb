@@ -1,30 +1,27 @@
+require_relative './kinesis_firehose'
+require_relative './kinesis_streams'
 require 'aws-sdk'
-require 'json'
-require 'kinesis_firehose'
-require 'kinesis_streams'
 
 module KinesisTools
 
-  class LoggingDeploy
+  class LoggingToolset
 
-    def initialize
-
+    def initialize(options = {})
+      @firehose ||= KinesisFirehose.new(options)
+      @stream = KinesisStream.new(options)
     end
 
     def create_full_logging_solution(app_name,
         kinesis_shard_count = {},
-        s3_bucket,
+        s3_bucket
       )
 
       # create kinesis stream
-      stream = KinesisStream.new
-      stream.create(app_name + '-stream', kinesis_shard_count)
-
+      @stream.create(app_name + '-stream', kinesis_shard_count)
       # create lambda function to post to sumo
 
       # create kinesis firehose
-      firehose = KinesisFirehose.new
-      firehose.create(app_name + '-stream', s3_bucket, app_name)
+      @firehose.create(app_name + '-stream', s3_bucket, app_name)
 
       # create lambda function to move logs from kinesis to firehose
 
@@ -32,9 +29,11 @@ module KinesisTools
 
     end
 
-    def monitoring_options
+    def create_monitor_alarm
 
     end
+
+  end
 
 end
 
